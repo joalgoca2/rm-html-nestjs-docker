@@ -1,4 +1,4 @@
-import { CacheInterceptor, Controller, Get, ParseIntPipe, Query, Render,    } from '@nestjs/common';
+import { CacheInterceptor, Controller, Get, ParseIntPipe, Query, Render, UseInterceptors,    } from '@nestjs/common';
 import { AppService } from './app.service';
 
 @Controller()
@@ -10,7 +10,7 @@ export class AppController {
     return this.appService.getReady();
   }
 
-  //@UseInterceptors(CacheInterceptor)
+  @UseInterceptors(CacheInterceptor)
   @Get('carpeta')
   @Render('layouts/index')
   getUser(@Query('id',ParseIntPipe) id:string) {

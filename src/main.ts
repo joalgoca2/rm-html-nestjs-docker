@@ -9,12 +9,14 @@ async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
   const appConfig: AppConfigService = app.get(AppConfigService);
   app.useStaticAssets(join(__dirname, '..', 'public'));
+  app.setBaseViewsDir(join(__dirname, '..', 'views'));
+  app.setViewEngine('hbs');
   app.setGlobalPrefix("api");
   if(appConfig.env==='production')
   {
     var corsWhitelist = [
       'http://localhost:'+appConfig.port,
-      'cvcovid.saludmexico.com.mx'
+      'subdominio.dominio.com'
     ];
     app.enableCors({
       origin: function (origin, callback) {
